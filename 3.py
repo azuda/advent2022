@@ -24,7 +24,7 @@ def p1():
     c2 = set(list(line[int(len(line)/2):]))
 
     for char in c1:
-      if char in c2:
+      if set(char).intersection(c2):
         seen.append(char)
 
   for char in seen:
@@ -45,7 +45,7 @@ def p2():
     counter += 1
     if counter % 3 == 0:
       for char in three[0]:
-        if (char in three[1]) and (char in three[2]):
+        if (set(char).intersection(three[1])) and (set(char).intersection(three[2])):
           total += convert[char]
           three = []
           break
