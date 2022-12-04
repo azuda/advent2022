@@ -7,7 +7,7 @@ Camp Cleanup
 
 def p1():
   with open("4_input.txt") as f:
-    lines = f.readlines()
+    lines = list(f)
   
   total = 0
   for line in lines:
@@ -33,7 +33,7 @@ def p1():
 
 def p2():
   with open("4_input.txt") as f:
-    lines = f.readlines()
+    lines = list(f)
   
   total = 0
   for line in lines:
