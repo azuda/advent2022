@@ -9,6 +9,7 @@ def parse_input():
   with open("5_input.txt", "r") as f:
     lines = list(f)
   
+  # parse crates into dict
   crates = []
   for i in range(8):
     crates.append(lines[i].strip("\n"))
@@ -23,60 +24,56 @@ def parse_input():
     if row[0].isalpha():
       for char in row:
         crates_dict[i].append(char)
+      crates_dict[i] = [x for x in crates_dict[i] if x != " "]
       i += 1
 
-  for i in crates_dict.keys():
-    crates_dict[i] = [x for x in crates_dict[i] if x != " "]
-
-  orders_raw = []
-  for row in range(10, len(lines)):
-    orders_raw.append(lines[row].strip("\n"))
-  
+  # parse procedure into 2D list
   orders = []
-  for order in orders_raw:
-    orders.append([int(i) for i in order.split() if i.isdigit()])
+  for row in range(10, len(lines)):
+    row_str = lines[row].strip("\n")
+    orders.append([int(i) for i in row_str.split() if i.isdigit()])
   
   return crates_dict, orders
 
 
 def p1():
   inputs = parse_input()
-  crates_dict = inputs[0]
+  crates = inputs[0]
   orders = inputs[1]
   
   for order in orders:
     amount = order[0]
-    start = crates_dict[order[1]]
-    dest = crates_dict[order[2]]
+    start = crates[order[1]]
+    dest = crates[order[2]]
 
     chunk = start[-amount:]
     dest.extend(reversed(chunk))
     del start[-amount:]
 
-    for i in crates_dict.keys():
-      crates_dict[i] = [x for x in crates_dict[i] if x != " "]
+    for i in crates.keys():
+      crates[i] = [x for x in crates[i] if x != " "]
 
-  print("".join([crates_dict[i][-1] for i in crates_dict.keys()]))
+  print("".join([crates[i][-1] for i in crates.keys()]))
 
 
 def p2():
   inputs = parse_input()
-  crates_dict = inputs[0]
+  crates = inputs[0]
   orders = inputs[1]
   
   for order in orders:
     amount = order[0]
-    start = crates_dict[order[1]]
-    dest = crates_dict[order[2]]
+    start = crates[order[1]]
+    dest = crates[order[2]]
 
     chunk = start[-amount:]
     dest.extend(chunk)
     del start[-amount:]
 
-    for i in crates_dict.keys():
-      crates_dict[i] = [x for x in crates_dict[i] if x != " "]
+    for i in crates.keys():
+      crates[i] = [x for x in crates[i] if x != " "]
 
-  print("".join([crates_dict[i][-1] for i in crates_dict.keys()]))
+  print("".join([crates[i][-1] for i in crates.keys()]))
 
 
 p1()
